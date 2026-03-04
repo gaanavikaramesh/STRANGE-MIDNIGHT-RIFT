@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strange Midnight Rift</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background: #111;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Game Variables
+        let player = { x: 50, y: 50, size: 50 };
+        let keys = {};
+
+        // Game Loop
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Player
+            ctx.fillStyle = 'red';
+            ctx.fillRect(player.x, player.y, player.size, player.size);
+            
+            // Update Player Position
+            if (keys['ArrowUp']) player.y -= 2;
+            if (keys['ArrowDown']) player.y += 2;
+            if (keys['ArrowLeft']) player.x -= 2;
+            if (keys['ArrowRight']) player.x += 2;
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Key Events
+        window.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+        });
+
+        window.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+
+        // Start Game
+        gameLoop();
+    </script>
+</body>
+</html>
